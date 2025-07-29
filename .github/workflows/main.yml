@@ -88,7 +88,7 @@ jobs:
 
       - name: Download and validate IPA
         run: |
-          wget "${{ inputs.ipa_url }}" --no-verbose -O ${{ github.workspace }}/youtube.ipa
+          curl -L --fail --retry 3 "${{ inputs.ipa_url }}" -o "${{ github.workspace }}/youtube.ipa"
 
           file_type=$(file --mime-type -b ${{ github.workspace }}/youtube.ipa)
 
@@ -140,7 +140,7 @@ jobs:
         id: download_ytp
         run: |
           deb_url="https://github.com/dayanch96/YTLite/releases/download/v${{ inputs.tweak_version }}/com.dvntm.ytlite_${{ inputs.tweak_version }}_iphoneos-arm64e.deb"
-          wget "$deb_url" --no-verbose -O ${{ github.workspace }}/ytplus.deb
+          curl -L --fail --retry 3 "$deb_url" -o "${{ github.workspace }}/ytplus.deb"
 
       - name: Clone Open in YouTube (Safari extension)
         run: |
